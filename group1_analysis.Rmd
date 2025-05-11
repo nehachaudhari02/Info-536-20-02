@@ -1,0 +1,29 @@
+---
+title: "group1_analysis"
+author: "Neha Chaudhari, Mushaer Ahmed, Tanya George"
+date: "20-02-2025"
+output: html_document
+---
+=======
+```{r}
+
+#| label: role 1
+
+# Loading all the required libraries
+
+pacman::p_load(tidyverse,
+               dplyr,
+               ggplot2)
+
+# Loading the dataset
+
+gtd <- read_csv("data/globalterrorismdb_0718dist.csv")
+head(gtd)
+
+# Filtering the data by removing all the missing incident years
+
+gtd_filter <- gtd |>
+  filter(!is.na(iyear)) # Only keeps rows where iyear is not NA 
+gtd_filter
+
+```
