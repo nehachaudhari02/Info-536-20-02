@@ -27,3 +27,13 @@ gtd_filter <- gtd |>
 gtd_filter
 
 ```
+
+```{r}
+#| label: role 2 (Mushaer Ahmed)
+
+attacks_per_year <- gtd_filter |> #creating a new dataframe 
+  group_by(iyear) |> #Grouping by year for easier analysis
+  summarise(total_attacks = n()) #summarizing the total number of attacks/year
+attacks_per_year
+
+```
