@@ -1,0 +1,57 @@
+---
+title: "group1_analysis"
+author: "Neha Chaudhari, Mushaer Ahmed, Tanya George"
+date: "20-02-2025"
+output: html_document
+---
+=======
+```{r chunk1_filter_and_prepare_data_by_year, warning=FALSE}
+
+#| label: role 1 (Neha Chaudhari)
+
+# Loading all the required libraries
+
+pacman::p_load(tidyverse,
+               dplyr,
+               ggplot2)
+
+# Loading the dataset
+
+gtd <- read_csv("globalterrorismdb_0718dist.csv")
+head(gtd)
+
+# Filtering the data by removing all the missing incident years
+
+gtd_filter <- gtd |>
+  filter(!is.na(iyear)) # Only keeps rows where iyear is not NA 
+gtd_filter
+
+```
+
+```{r chunk2_count_the_number_of_attacks_per_year, warning=FALSE}
+#| label: role 2 (Mushaer Ahmed)
+
+attacks_per_year <- gtd_filter |> #creating a new dataframe 
+  group_by(iyear) |> #Grouping by year for easier analysis
+  summarise(total_attacks = n()) #summarizing the total number of attacks/year
+attacks_per_year
+
+```
+
+```{r chunk3_visualize_the_number_of_attacks_per_year_using_a_bar_chart, warning=FALSE}
+#| label: role 3 (Tanya George)
+
+# Visualizing the number of attacks per year using a bar chart.
+
+attacks_barchart <- ggplot(attacks_per_year, aes(x = as.factor(iyear), y = total_attacks)) +
+geom_bar(stat = "identity", fill = "purple3") +
+  labs(title = "Bar chart showing number of Attacks per Year",
+       x = "Year",
+       y = "Number of Attacks") +
+  theme_minimal() +
+  theme( axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+plot(attacks_barchart)
+
+```
+
